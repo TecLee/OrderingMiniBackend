@@ -67,12 +67,8 @@ def create_dish(
 ):
     image_url = ""
     if image and image.filename:
-        ext = os.path.splitext(image.filename)[1] or ".jpg"
-        filename = f"{uuid.uuid4().hex}{ext}"
-        filepath = os.path.join(settings.UPLOAD_DIR, filename)
-        with open(filepath, "wb") as f:
-            f.write(image.file.read())
-        image_url = f"/uploads/{filename}"
+        from utils.image_utils import save_upload_image
+        image_url = save_upload_image(image, settings.UPLOAD_DIR)
 
     dish = Dish(name=name, description=description, price=price, category_id=category_id, image_url=image_url)
     db.add(dish)
@@ -105,12 +101,8 @@ def update_dish(
     if category_id is not None:
         dish.category_id = category_id
     if image and image.filename:
-        ext = os.path.splitext(image.filename)[1] or ".jpg"
-        filename = f"{uuid.uuid4().hex}{ext}"
-        filepath = os.path.join(settings.UPLOAD_DIR, filename)
-        with open(filepath, "wb") as f:
-            f.write(image.file.read())
-        dish.image_url = f"/uploads/{filename}"
+        from utils.image_utils import save_upload_image
+        dish.image_url = save_upload_image(image, settings.UPLOAD_DIR)
 
     db.commit()
     db.refresh(dish)
