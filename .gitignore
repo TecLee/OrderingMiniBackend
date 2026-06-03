@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+*.so
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Environment variables (API keys, secrets)
+.env
+.env.*
+!.env.example
+
+# Database and uploads
+data/
+*.db
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Deployment scripts
+deploy.py
+
+# Docs
+studyMd/
+*.md
+!README.md
+
+# OS
+.DS_Store
+Thumbs.db
+.claude/
