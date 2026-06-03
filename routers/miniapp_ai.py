@@ -340,6 +340,12 @@ async def ai_chat(
     """AI chat with function calling for cart/order management."""
     messages = body.get("messages", [])
 
+    # Enforce message length limits
+    for m in messages:
+        content = m.get("content", "")
+        if isinstance(content, str) and len(content) > 500:
+            m["content"] = content[:500]
+
     stream_gen, _ = await _handle_tool_calls(db, current_user.id, messages, "")
 
     return StreamingResponse(
